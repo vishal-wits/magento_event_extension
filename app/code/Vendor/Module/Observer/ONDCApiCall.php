@@ -9,17 +9,17 @@ use Magento\Framework\HTTP\Client\Curl;
 use Magento\Framework\HTTP\Client\CurlFactory;
 
 /**
- * Class AfterSave
+ * Class ONDCApiCall
  * @package ONDC\Listener
  */
-abstract class AfterSave implements ObserverInterface {
+abstract class ONDCApiCall implements ObserverInterface {
     /**
      * @var CurlFactory
      */
     private $curlFactory;
 
     /**
-     * AfterSave constructor.
+     * ONDCApiCall constructor.
      * @param CurlFactory $curlFactory
      */
     public function __construct(CurlFactory $curlFactory) {

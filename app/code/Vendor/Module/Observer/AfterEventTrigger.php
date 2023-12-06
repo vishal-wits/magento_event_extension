@@ -8,7 +8,7 @@ use Magento\Framework\Event\Observer;
  * Class AfterEventTrigger
  * @package ONDC\Listener
  */
-class AfterEventTrigger extends AfterSave
+class AfterEventTrigger extends ONDCApiCall
 {
     // public function execute(Observer $observer)
     // {
