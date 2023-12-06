@@ -16,19 +16,23 @@ abstract class AfterSave implements ObserverInterface {
     /**
      * @var CurlFactory
      */
-    private CurlFactory $curlFactory;
+    private $curlFactory;
+
+    /**
+     * AfterSave constructor.
+     * @param CurlFactory $curlFactory
+     */
+    public function __construct(CurlFactory $curlFactory) {
+        $this->curlFactory = $curlFactory;
+    }
 
     /**
      * @param Observer $observer
-     *
      * @throws Exception
      */
     public function execute(Observer $observer) {
         $item = $observer->getDataObject();
-        // Get the class name of the observer
         $observerClassName = get_class($observer);
-
-        // Extract the event name from the observer class name
         $eventName = $this->extractEventName($observerClassName);
         $apiEndpoint = 'https://68fa-115-240-127-98.ngrok-free.app/db/magentoEvents';
 
@@ -36,21 +40,23 @@ abstract class AfterSave implements ObserverInterface {
             'event_name' => $eventName,
             'data' => $item->getData(),
         ];
-        $this->sendDataToApi($apiEndpoint, $requestData);
+        
+        try {
+            $this->sendDataToApi($apiEndpoint, $requestData);
+        } catch (Exception $e) {
+            // Log the error instead of throwing an exception
+            // $this->_logger->error($e->getMessage());
+        }
     }
 
     /**
-     * Send data to the API using a POST request
-     *
      * @param string $apiEndpoint
      * @param array $requestData
-     *
      * @throws Exception
      */
     private function sendDataToApi($apiEndpoint, $requestData) {
         $curl = $this->curlFactory->create();
 
-        // Set cURL options
         $curl->setOption(CURLOPT_URL, $apiEndpoint);
         $curl->setOption(CURLOPT_RETURNTRANSFER, true);
         $curl->setOption(CURLOPT_POST, true);
@@ -58,26 +64,19 @@ abstract class AfterSave implements ObserverInterface {
         $curl->setOption(CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
         $response = $curl->execute();
-        if($curl->getErrno()) {
-            throw new Exception('Curl error: %s', $curl->getError() ?: null);
+        if (curl_errno($curl)) {
+            throw new Exception(sprintf('cURL error: %s', curl_error($curl)));
         }
-        $curl->close();
 
+        $curl->close();
     }
 
     /**
-    * Extract event name from observer class name
-    *
-    * @param string $observerClassName
-    *
-    * @return string
-    */
-   private function extractEventName($observerClassName)
-   {
-       $parts = explode('\\', $observerClassName);
-       return end($parts);
-   }
-
-
-
+     * @param string $observerClassName
+     * @return string
+     */
+    private function extractEventName($observerClassName) {
+        $parts = explode('\\', $observerClassName);
+        return end($parts);
+    }
 }

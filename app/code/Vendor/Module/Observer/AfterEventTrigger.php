@@ -10,13 +10,8 @@ use Magento\Framework\Event\Observer;
  */
 class AfterEventTrigger extends AfterSave
 {
-    /**
-     * @param Observer $observer
-     *
-     * @throws Exception
-     */
-    public function execute(Observer $observer)
-    {
-        parent::execute($observer);
-    }
+    // public function execute(Observer $observer)
+    // {
+    //     parent::execute($observer);
+    // }
 }
