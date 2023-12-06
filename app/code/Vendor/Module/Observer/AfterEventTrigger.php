@@ -1,5 +1,5 @@
 <?php
-namespace ONDC\Listener;
+namespace ONDC\Listener\Observer;
 
 use Exception;
 use Magento\Framework\Event\Observer;

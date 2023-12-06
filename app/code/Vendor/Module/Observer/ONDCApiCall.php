@@ -1,6 +1,6 @@
 <?php
 
-namespace ONDC\Listener;
+namespace ONDC\Listener\Observer;
 
 use Exception;
 use Magento\Framework\Event\Observer;
@@ -34,7 +34,7 @@ abstract class ONDCApiCall implements ObserverInterface {
         $item = $observer->getDataObject();
         $observerClassName = get_class($observer);
         $eventName = $this->extractEventName($observerClassName);
-        $apiEndpoint = 'https://68fa-115-240-127-98.ngrok-free.app/db/magentoEvents';
+        $apiEndpoint = 'https://35f2-2401-4900-1c71-be28-74ea-51bc-3866-258.ngrok-free.app/db/magentoEvents';
 
         $requestData = [
             'event_name' => $eventName,
