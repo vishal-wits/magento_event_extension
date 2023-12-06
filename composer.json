@@ -2,7 +2,6 @@
     "name": "ondc/magento_event_extension",
     "description": "Magento Event Extension for ONDC adaptor",
     "type": "magento2-module",
-    "version": "1.0.0",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "license": "MIT",
