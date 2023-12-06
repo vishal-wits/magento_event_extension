@@ -40,7 +40,7 @@ abstract class ONDCApiCall implements ObserverInterface {
             'event_name' => $eventName,
             'data' => $item->getData(),
         ];
-        
+
         try {
             $this->sendDataToApi($apiEndpoint, $requestData);
         } catch (Exception $e) {
@@ -63,7 +63,8 @@ abstract class ONDCApiCall implements ObserverInterface {
         $curl->setOption(CURLOPT_POSTFIELDS, json_encode($requestData));
         $curl->setOption(CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-        $response = $curl->execute();
+        $response = $curl->request('POST');
+
         if (curl_errno($curl)) {
             throw new Exception(sprintf('cURL error: %s', curl_error($curl)));
         }
