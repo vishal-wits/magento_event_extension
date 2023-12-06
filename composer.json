@@ -5,13 +5,9 @@
     "version": "1.0.0",
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "license": [
-        "OSL-3.0",
-        "AFL-3.0"
-    ],
+    "license": "MIT",
     "require": {
-        "php": "~7.4||~8.0",
-        "ondc/magento_event_extension": "1.0.0"
+        "php": "~7.4||~8.0"
     },
     "repositories": [
         {
