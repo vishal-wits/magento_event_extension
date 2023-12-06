@@ -56,19 +56,19 @@ abstract class ONDCApiCall implements ObserverInterface {
      */
     private function sendDataToApi($apiEndpoint, $requestData) {
         $curl = $this->curlFactory->create();
-
+  
         $curl->setOption(CURLOPT_URL, $apiEndpoint);
         $curl->setOption(CURLOPT_RETURNTRANSFER, true);
         $curl->setOption(CURLOPT_POST, true);
         $curl->setOption(CURLOPT_POSTFIELDS, json_encode($requestData));
         $curl->setOption(CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-        $response = $curl->post();
-
+        $response = $curl->post($apiEndpoint, $requestData);
+    
         if (curl_errno($curl)) {
             throw new Exception(sprintf('cURL error: %s', curl_error($curl)));
         }
-
+    
         $curl->close();
     }
 
