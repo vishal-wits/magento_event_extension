@@ -24,7 +24,7 @@
             "app/code/Vendor/Module/registration.php"
         ],
         "psr-4": {
-            "Vendor\\Module\\": "app/code/Vendor/Module"
+            "ONDC\\Listener\\": "app/code/Vendor/Module"
         }
     }
 }

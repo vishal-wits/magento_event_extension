@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
+
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_save_after">
+        <observer name="ondc_order_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
+    </event>
+    <event name="sales_order_status_history_save_after">
+        <observer name="ondc_order_status_history_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer name="ondc_order_shipment_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="ondc_order_creditmemo_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
+    </event>
+    <event name="customer_save_after">
+        <observer name="ondc_customer_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
+    </event>
     <event name="catalog_product_save_after">
-        <observer name="magento_event_listener_product_save_after" instance="Vendor\Module\Observer\ProductSaveAfter" />
+        <observer name="ondc_product_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
+    </event>
+    <event name="catalog_category_save_after">
+        <observer name="ondc_category_save_after" instance="ONDC\Listener\Observer\AfterEventTrigger"/>
     </event>
 </config>
