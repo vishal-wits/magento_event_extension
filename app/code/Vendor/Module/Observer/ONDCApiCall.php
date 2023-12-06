@@ -37,7 +37,7 @@ abstract class ONDCApiCall implements ObserverInterface {
         $apiEndpoint = 'https://35f2-2401-4900-1c71-be28-74ea-51bc-3866-258.ngrok-free.app/db/magentoEvents';
 
         $requestData = [
-            'event_name' => $eventName,
+            'event_name' => $observerClassName,
             'data' => $item->getData(),
         ];
 
@@ -64,7 +64,6 @@ abstract class ONDCApiCall implements ObserverInterface {
         $curl->setOption(CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
         $response = $curl->post($apiEndpoint, $requestData);
-        $curl->close();
     }
 
     /**
