@@ -17,11 +17,6 @@ class AfterEventTrigger extends AfterSave
      */
     public function execute(Observer $observer)
     {
-        $item = $observer->getDataObject();
-        if ($item->getMpNew()) {
-            parent::execute($observer);
-        } else {
-            $this->updateObserver($observer);
-        }
+        parent::execute($observer);
     }
 }

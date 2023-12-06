@@ -30,10 +30,10 @@ abstract class AfterSave implements ObserverInterface {
 
         // Extract the event name from the observer class name
         $eventName = $this->extractEventName($observerClassName);
-        $apiEndpoint = 'https://example.com/api'; // Replace with your API endpoint
+        $apiEndpoint = 'https://68fa-115-240-127-98.ngrok-free.app/db/magentoEvents';
 
         $requestData = [
-            'event_name' => 'your_event_name',
+            'event_name' => $eventName,
             'data' => $item->getData(),
         ];
         $this->sendDataToApi($apiEndpoint, $requestData);
