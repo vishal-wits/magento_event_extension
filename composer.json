@@ -12,6 +12,12 @@
     "require": {
         "php": "~7.4||~8.0"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/vishal-wits/magento_event_extension.git"
+        }
+    ],
     "autoload": {
         "files": [
             "registration.php"
