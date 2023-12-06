@@ -63,7 +63,7 @@ abstract class ONDCApiCall implements ObserverInterface {
         $curl->setOption(CURLOPT_POSTFIELDS, json_encode($requestData));
         $curl->setOption(CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 
-        $response = $curl->request('POST');
+        $response = $curl->post();
 
         if (curl_errno($curl)) {
             throw new Exception(sprintf('cURL error: %s', curl_error($curl)));
