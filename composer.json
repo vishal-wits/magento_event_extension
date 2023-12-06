@@ -3,6 +3,7 @@
     "description": "Magento Event Extension for ONDC adaptor",
     "type": "magento2-module",
     "license": "MIT",
+    "minimum-stability": "dev",
     "require": {
         "php": "~7.4||~8.0"
     },
