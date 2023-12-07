@@ -12,7 +12,7 @@ class AfterMagentoProductSave extends ONDCApiCall
 {
     public function execute(Observer $observer)
     {
-        $observerName = $observer->getName() || "ondc_product_save_after";
+        $observerName = $observer->getName() ?? "ondc_product_save_after";
         parent::executeApiCall($observer, $observerName);
     }
 }
