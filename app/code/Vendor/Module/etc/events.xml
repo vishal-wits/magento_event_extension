@@ -13,13 +13,22 @@
     <event name="sales_order_creditmemo_save_after">
         <observer name="ondc_order_creditmemo_save_after" instance="ONDC\Listener\Observer\AfterMagentoOrderCreditMemoSave"/>
     </event>
+    <event name="sales_order_delete_after">
+        <observer name="ondc_order_delete_after" instance="ONDC\Listener\Observer\AfterMagentoOrderDelete" />
+    </event>
     <event name="customer_save_after">
         <observer name="ondc_customer_save_after" instance="ONDC\Listener\Observer\AfterMagentoCustomerSave"/>
     </event>
     <event name="catalog_product_save_after">
         <observer name="ondc_product_save_after" instance="ONDC\Listener\Observer\AfterMagentoProductSave"/>
     </event>
+    <event name="catalog_product_delete_after">
+        <observer name="ondc_product_delete_after" instance="ONDC\Listener\Observer\AfterMagentoProductDelete"/>
+    </event>
     <event name="catalog_category_save_after">
         <observer name="ondc_category_save_after" instance="ONDC\Listener\Observer\AfterMagentoCategorySave"/>
+    </event>
+    <event name="catalog_category_delete_after">
+        <observer name="ondc_category_delete_after" instance="ONDC\Listener\Observer\AfterMagentoCategoryDelete" />
     </event>
 </config>
