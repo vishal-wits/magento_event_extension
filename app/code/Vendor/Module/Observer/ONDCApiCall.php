@@ -28,16 +28,15 @@ abstract class ONDCApiCall implements ObserverInterface {
 
     /**
      * @param Observer $observer
+     * @param string $observer
      * @throws Exception
      */
-    public function execute(Observer $observer) {
+    public function executeApiCall(Observer $observer, string $observerName) {
         $item = $observer->getDataObject();
-        $observerClassName = get_class($observer);
-        $eventName = $this->extractEventName($observerClassName);
-        $apiEndpoint = 'https://35f2-2401-4900-1c71-be28-74ea-51bc-3866-258.ngrok-free.app/db/magentoEvents';
+        $apiEndpoint = 'https://e733-115-240-127-98.ngrok-free.app/db/magentoEvents';
 
         $requestData = [
-            'event_name' => $observerClassName,
+            'event_name' => $observerName,
             'data' => $item->getData(),
         ];
 
@@ -52,7 +51,6 @@ abstract class ONDCApiCall implements ObserverInterface {
     /**
      * @param string $apiEndpoint
      * @param array $requestData
-     * @throws Exception
      */
     private function sendDataToApi($apiEndpoint, $requestData) {
         $curl = $this->curlFactory->create();
@@ -66,12 +64,4 @@ abstract class ONDCApiCall implements ObserverInterface {
         $response = $curl->post($apiEndpoint, $requestData);
     }
 
-    /**
-     * @param string $observerClassName
-     * @return string
-     */
-    private function extractEventName($observerClassName) {
-        $parts = explode('\\', $observerClassName);
-        return end($parts);
-    }
 }
