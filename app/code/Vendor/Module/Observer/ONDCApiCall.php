@@ -33,7 +33,7 @@ abstract class ONDCApiCall implements ObserverInterface {
      */
     public function executeApiCall(Observer $observer, string $observerName) {
         $item = $observer->getDataObject();
-        $apiEndpoint = 'https://e733-115-240-127-98.ngrok-free.app/db/magentoEvents';
+        $apiEndpoint = 'https://0c89-115-240-127-98.ngrok-free.app/events';
 
         $requestData = [
             'event_name' => $observerName,
