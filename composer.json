@@ -26,5 +26,6 @@
         "psr-4": {
             "ONDC\\Listener\\": "app/code/Vendor/Module"
         }
-    }
+    },
+    "version": "1.0.0"
 }
