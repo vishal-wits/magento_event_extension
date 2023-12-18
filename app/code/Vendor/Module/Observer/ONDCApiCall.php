@@ -7,6 +7,8 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\HTTP\Client\Curl;
 use Magento\Framework\HTTP\Client\CurlFactory;
+use Magento\Store\Model\StoreManagerInterface;
+use Magento\Backend\Model\Auth\Session as AdminSession;
 
 /**
  * Class ONDCApiCall
@@ -17,13 +19,24 @@ abstract class ONDCApiCall implements ObserverInterface {
      * @var CurlFactory
      */
     private $curlFactory;
+    /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
+     * @var AdminSession
+     */
+    private $adminSession;
 
     /**
      * ONDCApiCall constructor.
      * @param CurlFactory $curlFactory
      */
-    public function __construct(CurlFactory $curlFactory) {
+    public function __construct(CurlFactory $curlFactory, StoreManagerInterface $storeManager, AdminSession $adminSession) {
         $this->curlFactory = $curlFactory;
+        $this->storeManager = $storeManager;
+        $this->adminSession = $adminSession;
     }
 
     /**
@@ -37,6 +50,9 @@ abstract class ONDCApiCall implements ObserverInterface {
 
         $requestData = [
             'event_name' => $observerName,
+            'base_url' => $this->getBaseUrl(),
+            'username' => $this->getLoggedInUsername(),
+            'store_id' => $this->getLoggedInUserId(),
             'data' => $item->getData(),
         ];
 
@@ -46,6 +62,35 @@ abstract class ONDCApiCall implements ObserverInterface {
             // Log the error instead of throwing an exception
             // $this->_logger->error($e->getMessage());
         }
+    }
+
+    /**
+     * Get the base URL of the store
+     *
+     * @return string
+     */
+    private function getBaseUrl() {
+        return $this->storeManager->getStore()->getBaseUrl();
+    }
+
+    /**
+     * Get the logged-in admin username
+     *
+     * @return string|null
+     */
+    private function getLoggedInUsername()
+    {
+        return $this->adminSession->getUser()->getUsername();
+    }
+
+    /**
+     * Get the logged-in admin user ID
+     *
+     * @return int|null
+     */
+    private function getLoggedInUserId()
+    {
+        return $this->adminSession->getUser()->getId();
     }
 
     /**
