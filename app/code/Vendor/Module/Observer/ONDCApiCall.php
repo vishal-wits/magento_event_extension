@@ -14,7 +14,8 @@ use Magento\Backend\Model\Auth\Session as AdminSession;
  * Class ONDCApiCall
  * @package ONDC\Listener
  */
-abstract class ONDCApiCall implements ObserverInterface {
+abstract class ONDCApiCall implements ObserverInterface
+{
     /**
      * @var CurlFactory
      */
@@ -33,7 +34,8 @@ abstract class ONDCApiCall implements ObserverInterface {
      * ONDCApiCall constructor.
      * @param CurlFactory $curlFactory
      */
-    public function __construct(CurlFactory $curlFactory, StoreManagerInterface $storeManager, AdminSession $adminSession) {
+    public function __construct(CurlFactory $curlFactory, StoreManagerInterface $storeManager, AdminSession $adminSession)
+    {
         $this->curlFactory = $curlFactory;
         $this->storeManager = $storeManager;
         $this->adminSession = $adminSession;
@@ -44,7 +46,8 @@ abstract class ONDCApiCall implements ObserverInterface {
      * @param string $observer
      * @throws Exception
      */
-    public function executeApiCall(Observer $observer, string $observerName) {
+    public function executeApiCall(Observer $observer, string $observerName)
+    {
         $item = $observer->getDataObject();
         $apiEndpoint = 'https://products-magento-dev.thewitslab.com/events';
 
@@ -67,11 +70,15 @@ abstract class ONDCApiCall implements ObserverInterface {
     /**
      * Get the base URL of the store
      *
-     * @return string
+     * @return string|null
      */
-    private function getBaseUrl() {
-        return $this->storeManager->getStore()->getBaseUrl();
+    private function getBaseUrl()
+    {
+        $store = $this->storeManager->getStore();
+
+        return $store ? $store->getBaseUrl() : null;
     }
+
 
     /**
      * Get the logged-in admin username
@@ -80,7 +87,9 @@ abstract class ONDCApiCall implements ObserverInterface {
      */
     private function getLoggedInUsername()
     {
-        return $this->adminSession->getUser()->getUsername();
+        $user = $this->adminSession->getUser();
+
+        return $user ? $user->getUsername() : null;
     }
 
     /**
@@ -90,16 +99,20 @@ abstract class ONDCApiCall implements ObserverInterface {
      */
     private function getLoggedInUserId()
     {
-        return $this->adminSession->getUser()->getId();
+        $user = $this->adminSession->getUser();
+
+        return $user ? $user->getId() : null;
     }
+
 
     /**
      * @param string $apiEndpoint
      * @param array $requestData
      */
-    private function sendDataToApi($apiEndpoint, $requestData) {
+    private function sendDataToApi($apiEndpoint, $requestData)
+    {
         $curl = $this->curlFactory->create();
-  
+
         $curl->setOption(CURLOPT_URL, $apiEndpoint);
         $curl->setOption(CURLOPT_RETURNTRANSFER, true);
         $curl->setOption(CURLOPT_POST, true);
